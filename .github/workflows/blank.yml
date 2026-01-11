@@ -25,7 +25,9 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Lint Dockerfile
-        run: hadolint src/Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
 
       - name: Build Docker image
         run: docker build -t jmarmor916/hivebox .
