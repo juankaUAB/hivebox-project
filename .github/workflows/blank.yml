@@ -13,19 +13,13 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  hadolint:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Lint Dockerfile
-        run: docker run –rm -i hadolint/hadolint < ./src/Dockerfile
-
-      - name: Build Docker image
-        run: docker build -t jmarmor916/hivebox .
+    - name: Dockerfile linting with hadolint
+      uses: hadolint/hadolint-action@v3.1.0
+      with:
+        dockerfile: ./src/Dockerfile
