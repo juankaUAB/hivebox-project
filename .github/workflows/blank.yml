@@ -8,13 +8,8 @@ on:
   push:
     branches: [ "development" ]
   workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+  
 jobs:
-<<<<<<< HEAD
-  # This workflow contains a single job called "build"
-=======
->>>>>>> 5b745271f4ee0b97aa93c945d8e557e1caef63d7
   hadolint:
     runs-on: ubuntu-latest
     steps:
