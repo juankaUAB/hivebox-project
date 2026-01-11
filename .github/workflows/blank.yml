@@ -27,7 +27,7 @@ jobs:
       - name: Lint Dockerfile
         uses: hadolint/hadolint-action@v3.1.0
         with:
-          dockerfile: src/Dockerfile
+          dockerfile: ./src/Dockerfile
 
       - name: Build Docker image
         run: docker build -t jmarmor916/hivebox .
