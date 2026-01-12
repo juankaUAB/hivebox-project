@@ -1,3 +1,5 @@
+"""Imports"""
+
 from datetime import datetime, timezone
 import itertools
 from flask import Flask
@@ -22,16 +24,19 @@ def version() -> dict[str, str]:
 def temperature():
     """Temperature endpoint"""
     temperature_list = []
-    for senseBox_id in SENSEBOX_LIST:
-        response = requests.get("https://api.opensensemap.org/boxes/" + senseBox_id,
+    for sensebox_id in SENSEBOX_LIST:
+        response = requests.get("https://api.opensensemap.org/boxes/" + sensebox_id,
                                 timeout=30).json()
         temperature_list.append(list(filter(lambda x:
             (x["title"]=="Temperatur" or x["title"]=="temperature") and
-            (datetime.strptime(response["sensors"][2]["lastMeasurement"]["createdAt"], '%Y-%m-%dT%H:%M:%S.%fZ')
-             .replace(tzinfo=timezone.utc).timestamp() > datetime.now().timestamp() - 3600),response["sensors"])))
+            (datetime.strptime(response["sensors"][2]["lastMeasurement"]["createdAt"],
+                               '%Y-%m-%dT%H:%M:%S.%fZ')
+             .replace(tzinfo=timezone.utc).timestamp() > datetime.now().timestamp() - 3600),
+            response["sensors"])))
     temperature_list = list(map(lambda x: float(x["lastMeasurement"]["value"]),
                                 list(itertools.chain.from_iterable(temperature_list))))
-    return {"senseBox_ids" : SENSEBOX_LIST, "type" : "avg", "measurement" : "Temperature", "value" : sum(temperature_list) / len(temperature_list)}
+    return {"sensebox_ids" : SENSEBOX_LIST, "type" : "avg", "measurement" : "Temperature",
+            "value" : sum(temperature_list) / len(temperature_list)}
 
 if __name__ ==  '__main__':
-      app.run(host="0.0.0.0", port=8000)
+    app.run(host="0.0.0.0", port=8000)
