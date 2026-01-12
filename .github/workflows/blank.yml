@@ -23,6 +23,7 @@ jobs:
   
   build_image:
     runs-on: ubuntu-latest
+    environment: hivebox-app
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
