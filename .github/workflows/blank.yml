@@ -40,7 +40,7 @@ jobs:
       - name: Build and Push the Docker Image
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ./src/
           file: ./src/Dockerfile
           push: true
           tags: |
