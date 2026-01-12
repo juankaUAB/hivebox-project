@@ -45,5 +45,3 @@ jobs:
           push: true
           tags: |
             ${{ vars.DOCKER_REGISTRY }}/${{ vars.DOCKER_IMAGE_NAME }}:latest
-          cache-from: type=registry,ref=${{ vars.DOCKER_REGISTRY }}/${{ vars.DOCKER_IMAGE_NAME }}:buildcache
-          cache-to: type=registry,ref=${{ vars.DOCKER_REGISTRY }}/${{ vars.DOCKER_IMAGE_NAME }}:buildcache,mode=max
