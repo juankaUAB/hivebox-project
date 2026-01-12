@@ -37,10 +37,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       
-      - name: Get the tag name
-        id: get_version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-      
       - name: Build and Push the Docker Image
         uses: docker/build-push-action@v6
         with:
@@ -48,6 +44,6 @@ jobs:
           file: ./src/Dockerfile
           push: true
           tags: |
-            ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:latest
-          cache-from: type=registry,ref=${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:buildcache
-          cache-to: type=registry,ref=${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:buildcache,mode=max
+            ${{ vars.DOCKER_REGISTRY }}/${{ vars.DOCKER_IMAGE_NAME }}:latest
+          cache-from: type=registry,ref=${{ vars.DOCKER_REGISTRY }}/${{ vars.DOCKER_IMAGE_NAME }}:buildcache
+          cache-to: type=registry,ref=${{ vars.DOCKER_REGISTRY }}/${{ vars.DOCKER_IMAGE_NAME }}:buildcache,mode=max
